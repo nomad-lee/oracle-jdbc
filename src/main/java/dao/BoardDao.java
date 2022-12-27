@@ -30,6 +30,23 @@ public class BoardDao {
 		return list;
 	}
 	
+	public Board selectBoardOne (Connection conn, int boardNo) throws Exception {
+		Board board = null;
+		
+		String sql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent FROM board where boardNo = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, boardNo);
+		
+		ResultSet rs = stmt.executeQuery();
+		if(rs.next()) {
+			board = new Board();
+			board.setBoardNo(rs.getInt("boardNo"));
+			board.setBoardTitle(rs.getString("boardTitle"));
+			board.setBoardContent(rs.getString("boardContent"));
+		}		
+		return board;
+	}
+	
 	public int insertBoard(Connection conn, Board board) throws Exception {
 		/*
 		 	insert into board (
@@ -40,4 +57,45 @@ public class BoardDao {
 		 */
 		return 0;
 	}
+	
+	
+	public int insertBoardList(Connection conn, Board board) throws Exception {
+		int row = 0;
+
+		String sql = "INSERT INTO board(board_no, board_title, board_content, member_id, updatedate, createdate)"
+					+ " VALUES(board_seq.nextval, ?, ?, ?, sysdate, sysdate)";		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, board.getBoardTitle());
+		stmt.setString(2, board.getBoardContent());
+		stmt.setString(2, board.getMemberId());
+		
+		row = stmt.executeUpdate();
+		return row;
+	}
+	
+	public int updateBoardList(Connection conn, Board board) throws Exception {
+		int row = 0;
+
+		String sql = "UPDATE board SET board_title = ?, board_content = ?, updatedate = ? WHERE no = ?";
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setString(1, board.getBoardTitle());
+		stmt.setString(2, board.getBoardContent());
+		stmt.setString(3, board.getUpdatedate());
+		stmt.setInt(4, board.getBoardNo());
+			
+		row = stmt.executeUpdate();
+		return row;
+	}
+	public int deleteBoardList(Connection conn, Board board) throws Exception {
+		int row = 0;
+
+		String sql = "DELETE FROM board WHERE boardNo = ?";
+		
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, board.getBoardNo());
+			
+		row = stmt.executeUpdate();		
+		return row;
+	}
+	
 }

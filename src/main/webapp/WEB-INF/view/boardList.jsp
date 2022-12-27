@@ -17,6 +17,9 @@
 </head>
 <body>
 	<h1>BOARD LIST</h1>
+	<div>
+		<a href="${pageContext.request.contextPath}/AddBoardFormController">글입력</a>
+	</div>	
 	<form id="pageForm" method="get" action="${pageContext.request.contextPath}/BoardListController">
 		<select name="rowPerPage" id="rowPerPage">
 			<c:if test="${rowPerPage == 10}">
@@ -45,7 +48,7 @@
 		<c:forEach var="b" items="${boardList}">
 			<tr>
 				<td>${b.boardNo}</td>
-				<td><a href="">${b.boardTitle}</a></td>
+				<td><a href="${pageContext.request.contextPath}/BoardOneController?no=${b.boardNo}">${b.boardTitle}</a></td>
 				<td>${b.createdate}</td>
 			</tr>
 		</c:forEach>
