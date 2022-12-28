@@ -7,23 +7,34 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import service.MemberService;
+import vo.Member;
+
 
 @WebServlet("/member/addMember")
 public class AddMemberController extends HttpServlet {
 	// 회원가입 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * VIEW -> /WEB-INF/view/member/addMember.jsp
-		 * 
-		 */
+		request.getRequestDispatcher("/WEB-INF/view/member/addMember.jsp").forward(request, response);
 	}
 	// 회원가입 액션	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * 로그인 세션 정보 : ex) session.setAttribute
-		 * redirect -> /member/login <- 컨트롤러 요청(get방식)
-		 */
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");		
+		String memberId = request.getParameter("memberId");
+		String memberPw = request.getParameter("memberPw");
+		String memberName = request.getParameter("memberName");
+			
+		Member member = new Member();
+		member.setMemberId(memberId);
+		member.setMemberPw(memberPw);
+		member.setMemberName(memberName);
+		
+		// 모델호출
+		MemberService memberService = new MemberService();
+		memberService.insertMemberService(member);
+		
+		// view가 없으므로
+		response.sendRedirect(request.getContextPath()+"/home");
 	}
 
 }
