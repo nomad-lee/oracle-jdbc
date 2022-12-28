@@ -15,25 +15,30 @@ import service.BoardService;
 // list select					: C -> M -> V 
 // form	페이지호출					: C -> V
 // action insert/update/delete	: C -> M =====> response.sendRedirect()
-@WebServlet("/AddBoardActionController")
-public class AddBoardActionController extends HttpServlet {
-	// 받아오는 방식에따라 doPost or doGet
+@WebServlet("/board/addBoard")
+public class AddBoardController extends HttpServlet {
+	// 글쓰기 폼
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/view/board/addBoardForm.jsp").forward(request, response);
+	}
+	
+	// 글쓰기 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		String createdate = request.getParameter("createdate");
+		String memberId = "goodee";
 			
 		Board board = new Board();
 		board.setBoardTitle(title);
 		board.setBoardContent(content);
-		board.setCreatedate(createdate);
+		board.setMemberId(memberId);
 		
 		// 모델호출
 		BoardService boardService = new BoardService();
 		boardService.insertBoardService(board);
 		
 		// view가 없으므로
-		response.sendRedirect(request.getContextPath()+"/BoardListController");
+		response.sendRedirect(request.getContextPath()+"/board/boardList");
 	}
 }

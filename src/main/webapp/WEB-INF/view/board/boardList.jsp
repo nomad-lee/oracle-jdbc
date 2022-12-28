@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>BoardList</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -18,9 +18,9 @@
 <body>
 	<h1>BOARD LIST</h1>
 	<div>
-		<a href="${pageContext.request.contextPath}/AddBoardFormController">글입력</a>
+		<a href="${pageContext.request.contextPath}/board/addBoard">글입력</a>
 	</div>	
-	<form id="pageForm" method="get" action="${pageContext.request.contextPath}/BoardListController">
+	<form id="pageForm" method="get" action="${pageContext.request.contextPath}/board/boardList">
 		<select name="rowPerPage" id="rowPerPage">
 			<c:if test="${rowPerPage == 10}">
 				<option value="10" selected="selected">10</option>
@@ -48,14 +48,14 @@
 		<c:forEach var="b" items="${boardList}">
 			<tr>
 				<td>${b.boardNo}</td>
-				<td><a href="${pageContext.request.contextPath}/BoardOneController?no=${b.boardNo}">${b.boardTitle}</a></td>
+				<td><a href="${pageContext.request.contextPath}/board/boardOne?boardNo=${b.boardNo}">${b.boardTitle}</a></td>
 				<td>${b.createdate}</td>
 			</tr>
 		</c:forEach>
 	</table>
 	<div>
-		<a href="${pageContext.request.contextPath}/BoardListController?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}">이전</a>
-		<a href="${pageContext.request.contextPath}/BoardListController?rowPerPage=${rowPerPage}&currentPage=${currentPage+1}">다음</a>
+		<a href="${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage-1}">이전</a>
+		<a href="${pageContext.request.contextPath}/board/boardList?rowPerPage=${rowPerPage}&currentPage=${currentPage+1}">다음</a>
 	</div>
 </body>
 </html>

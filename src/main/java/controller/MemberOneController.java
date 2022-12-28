@@ -7,9 +7,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/AddBoardFormController")
-public class AddBoardFormController extends HttpServlet {	
+@WebServlet("/member/memberOne")
+public class MemberOneController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("/WEB-INF/view/addBoardForm.jsp").forward(request, response);
+		/*
+		 *	VIEW -> /WEB-INF/view/member/memberOne.jsp
+		 *	메뉴구성
+		 *	1) 회원정보수정
+		 *	2) 회원탈퇴
+		 */
 	}
 }

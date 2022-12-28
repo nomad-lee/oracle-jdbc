@@ -33,7 +33,7 @@ public class BoardDao {
 	public Board selectBoardOne (Connection conn, int boardNo) throws Exception {
 		Board board = null;
 		
-		String sql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent FROM board where boardNo = ?";
+		String sql = "SELECT board_no boardNo, board_title boardTitle, board_content boardContent FROM board where board_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, boardNo);
 		
@@ -46,19 +46,7 @@ public class BoardDao {
 		}		
 		return board;
 	}
-	
-	public int insertBoard(Connection conn, Board board) throws Exception {
-		/*
-		 	insert into board (
-    			board_no, board_title, board_content, member_id, updatedate, createdate
-			) values (
-    			board_seq.nextval, ? , ?, ?, sysdate, sysdate
-			)
-		 */
-		return 0;
-	}
-	
-	
+		
 	public int insertBoardList(Connection conn, Board board) throws Exception {
 		int row = 0;
 
@@ -67,7 +55,7 @@ public class BoardDao {
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, board.getBoardTitle());
 		stmt.setString(2, board.getBoardContent());
-		stmt.setString(2, board.getMemberId());
+		stmt.setString(3, board.getMemberId());
 		
 		row = stmt.executeUpdate();
 		return row;
@@ -76,7 +64,7 @@ public class BoardDao {
 	public int updateBoardList(Connection conn, Board board) throws Exception {
 		int row = 0;
 
-		String sql = "UPDATE board SET board_title = ?, board_content = ?, updatedate = ? WHERE no = ?";
+		String sql = "UPDATE board SET board_title = ?, board_content = ?, updatedate = ? WHERE board_no = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, board.getBoardTitle());
 		stmt.setString(2, board.getBoardContent());
@@ -89,7 +77,7 @@ public class BoardDao {
 	public int deleteBoardList(Connection conn, Board board) throws Exception {
 		int row = 0;
 
-		String sql = "DELETE FROM board WHERE boardNo = ?";
+		String sql = "DELETE FROM board WHERE board_no = ?";
 		
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, board.getBoardNo());

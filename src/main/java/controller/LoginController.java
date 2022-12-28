@@ -12,10 +12,16 @@ import java.net.*;
 import service.MemberService;
 import vo.Member;
 
-@WebServlet("/LoginActionController")
-public class LoginActionController extends HttpServlet {
-	private MemberService memberService;
+@WebServlet("/member/login")
+public class LoginController extends HttpServlet {
+	// 로그인 폼
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+	
+	// 로그인 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		private MemberService memberService;
 		// 로그인 전에만 진입가능
 		HttpSession session = request.getSession();
 		// 로그인 전 : loginMember -> null

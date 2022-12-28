@@ -1,8 +1,6 @@
 package controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,27 +10,22 @@ import javax.servlet.http.HttpServletResponse;
 import service.BoardService;
 import vo.Board;
 
-@WebServlet("/board/boardOne")
-public class BoardOneController extends HttpServlet {	
-		/*
-		 * VIEW 메뉴구성
-		 * 1. 글수정(로그인멤버 == 글쓴멤버)
-		 * 2. 글삭제(로그인멤버 == 글쓴멤버)
-		 */
-	
+@WebServlet("/board/removeBoard")
+public class RemoveBoardController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		
 		int boardNo = 0;
 		boardNo = Integer.parseInt(request.getParameter("boardNo"));
-
+		
 		Board board = new Board();
+		board.setBoardNo(boardNo);
+
+	    // 모델호출
 		BoardService boardService = new BoardService();
-		board = boardService.getBoardOne(boardNo);
+		boardService.deleteBoardService(board);
 		
-		// view와 공유할 모델 데이터 성정
-		request.setAttribute("board", board);
-		
-		// view 연결
-		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/view/board/boardOne.jsp");
-		rd.forward(request, response);
+		// view가 없으므로
+		response.sendRedirect(request.getContextPath()+"/board/boardList");
 	}
 }
