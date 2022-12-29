@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -59,7 +60,8 @@ public class LoginController extends HttpServlet {
 		Member returnMember = memberService.loginService(paramMember);
 				
 		if(returnMember == null) { //로그인 실패
-			response.sendRedirect(request.getContextPath()+"/member/login");
+			String msg = URLEncoder.encode("로그인 실패", "utf-8");
+			response.sendRedirect(request.getContextPath()+"/member/login?msg="+msg);
 			System.out.println("로그인 실패");
 			return;
 		}

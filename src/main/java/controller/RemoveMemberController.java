@@ -48,6 +48,6 @@ public class RemoveMemberController extends HttpServlet {
 		memberService.deleteMemberService(member);
 		
 		// view가 없으므로
-		response.sendRedirect(request.getContextPath()+"/home");
+		response.sendRedirect(request.getContextPath()+"/member/logout");
 	}
 }

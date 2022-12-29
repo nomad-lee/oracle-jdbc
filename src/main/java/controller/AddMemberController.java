@@ -23,7 +23,14 @@ public class AddMemberController extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
 		String memberName = request.getParameter("memberName");
-			
+		
+		if(request.getParameter("memberId") == null || request.getParameter("memberPw") == null || request.getParameter("memberName") == null
+				|| request.getParameter("memberId") == "" || request.getParameter("memberPw") == "" || request.getParameter("memberName") == "") {
+				String msg = URLEncoder.encode("모든 정보를 입력하세요", "utf-8"); //미입력 방지, get방식 주소창에 문자열 인코딩
+				response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?cashNo="+cashNo+"&msg="+msg+"&year="+year+"&month="+month+"&date="+date);
+				return;
+			}
+		
 		Member member = new Member();
 		member.setMemberId(memberId);
 		member.setMemberPw(memberPw);
