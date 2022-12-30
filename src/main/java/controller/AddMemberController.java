@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,7 +21,7 @@ public class AddMemberController extends HttpServlet {
 	}
 	// 회원가입 액션	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");		
+		request.setCharacterEncoding("utf-8");
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
 		String memberName = request.getParameter("memberName");
@@ -27,7 +29,7 @@ public class AddMemberController extends HttpServlet {
 		if(request.getParameter("memberId") == null || request.getParameter("memberPw") == null || request.getParameter("memberName") == null
 				|| request.getParameter("memberId") == "" || request.getParameter("memberPw") == "" || request.getParameter("memberName") == "") {
 				String msg = URLEncoder.encode("모든 정보를 입력하세요", "utf-8"); //미입력 방지, get방식 주소창에 문자열 인코딩
-				response.sendRedirect(request.getContextPath()+"/cash/cashDateList.jsp?cashNo="+cashNo+"&msg="+msg+"&year="+year+"&month="+month+"&date="+date);
+				response.sendRedirect(request.getContextPath()+"/member/addMember?memberId="+memberId+"&msg="+msg+"&memberPw="+memberPw+"&memberName="+memberName);
 				return;
 			}
 		

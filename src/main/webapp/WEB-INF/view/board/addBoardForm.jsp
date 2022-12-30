@@ -17,7 +17,7 @@ C -> V
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script>	
+<script>
 	$(document).ready(function(){
 	    let now = new Date();
 	    let year = ('0' + now.getFullYear()).slice(-2);
@@ -26,7 +26,21 @@ C -> V
 
 	    let today = year + '/' + month  + '/' + day;
 	    $('#createdate').val(today);
-	  });
+	    
+	    $('#btnAdd').click(function() {
+	    	$('#boardTitle').focus();
+			// 폼 유효성 검사
+			// age 숫자만, name 2자이상, gender 공백, team 공백			
+			if($('#boardTitle').val().length < 1) { // isNaN(매개값) -- > Not a Number 매개값이 숫자가 아닐때 참
+				alert('boardTitle을 입력하세요');
+				return;
+			}
+			if($('#boardContent').val() == '') {
+				alert('boardContent를 입력하세요');
+				return;
+			}
+		});
+	  });	
 </script>
 <style>
 	h1 { font-family: 'Nanum Gothic Coding', monospace; color:white; padding-top:50px; font-size: 40px; text-align: center;}
@@ -44,19 +58,19 @@ C -> V
 	<div class="container">
 		<form action="${pageContext.request.contextPath}/board/addBoard" method="post">
 			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="title" placeholder="제목을 입력하시오" name="title">
-				<label for="title">boardTitle</label>
+				<input type="text" class="form-control" id="boardTitle" placeholder="제목을 입력하시오" name="boardTitle" value="${param.boardTitle}">
+				<label for="boardTitle">boardTitle</label>
 			</div>
 			<div class="form-floating mb-3">
-				<textarea class="form-control" id="content" style="height: 200px" placeholder="내용을 입력하시오" name="content"></textarea>
-				<label for="content">boardContent</label>
+				<textarea class="form-control" id="boardContent" style="height: 200px" placeholder="내용을 입력하시오" name="boardContent">${param.boardContent}</textarea>
+				<label for="boardContent">boardContent</label>
 			</div>
 			<div class="form-floating mb-3">
 				<input type="text" class="form-control" id="createdate" name="createdate" readonly>
 				<label for="createdate">createdate</label>
 			</div>
 			<div class="text-center">
-				<button class="btn btn-light btn-lg center" type="submit">작성완료</button>
+				<button class="btn btn-light btn-lg center" id="btnAdd" type="submit">작성완료</button>
 			</div>			
 		</form>
 	</div> 

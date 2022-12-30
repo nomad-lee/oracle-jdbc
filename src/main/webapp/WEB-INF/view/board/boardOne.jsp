@@ -26,7 +26,7 @@
 			<input type="text" class="form-control" id="floatTitle" name="boardTitle" value="${board.boardTitle}" readonly>
 			<label for="floatingInput">title</label>
 		</div>
-		<div class="form-floating">
+		<div class="form-floating mb-3">
 			<textarea class="form-control" id="floatContent" name="boardContent" style="height: 150px" readonly>${board.boardContent}</textarea>
 			<label for="content">content</label>
 		</div>

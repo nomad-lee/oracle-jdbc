@@ -34,7 +34,7 @@
 				</div>
 			</table>
 			<div class="text-center">
-				<button class="btn btn-light btn-lg center" type="submit">탈퇴확정</button>
+				<button class="btn btn-danger btn-lg center" type="submit">탈퇴확정</button>
 			</div>			
 		</form>
 	</div>	

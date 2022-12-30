@@ -50,7 +50,7 @@
 				<label for="content">boardContent</label>
 			</div>
 			<div class="text-center">
-				<button class="btn btn-light btn-lg center" type="submit">작성완료</button>
+				<button class="btn btn-secondary btn-lg center" type="submit">작성완료</button>
 			</div>			
 		</form>
 	</div> 
