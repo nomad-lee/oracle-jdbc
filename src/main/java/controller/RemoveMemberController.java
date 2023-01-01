@@ -15,15 +15,14 @@ import vo.Member;
 public class RemoveMemberController extends HttpServlet {
 	// 회원 탈퇴 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그인 후에만 접근가능
-		HttpSession session = request.getSession();
-		
-		// 로그인 여부확인, 로그인 되어있지않을 경우 회원페이지로 이동
-		Member loginMember = (Member)session.getAttribute("loginMember");
+		// 로그인 여부확인, 로그인 되어있지 않으면 홈으로 이동
+		HttpSession session = request.getSession();		
+		Member loginMember = (Member)session.getAttribute("loginMember");		
 		if(loginMember == null) {
 			response.sendRedirect(request.getContextPath()+"/home");
 			return;
 		}
+		
 		// view와 공유할 모델 데이터 성정
 		request.setAttribute("loginMember", loginMember);
 		
@@ -32,22 +31,36 @@ public class RemoveMemberController extends HttpServlet {
 	}
 	// 회원 탈퇴 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("utf-8");		
+
+		// 로그인 여부확인, 로그인 되어있지 않으면 홈으로 이동
+		HttpSession session = request.getSession();		
+		Member loginMember = (Member)session.getAttribute("loginMember");		
+		if(loginMember == null) {
+			response.sendRedirect(request.getContextPath()+"/home");
+			return;
+		}
 		
 		String memberId = null;
 		String memberPw = null;	
 		memberId = request.getParameter("memberId");
 		memberPw = request.getParameter("memberPw");
 		
-		Member member= new Member();
+		Member member = new Member();
 		member.setMemberId(memberId);
 		member.setMemberPw(memberPw);
 
 	    // 모델호출
 		MemberService memberService = new MemberService();
-		memberService.deleteMemberService(member);
+		int returnMember = memberService.deleteMemberService(member);
 		
-		// view가 없으므로
-		response.sendRedirect(request.getContextPath()+"/member/logout");
+		if(returnMember == 0) { //탈퇴 실패
+			response.sendRedirect(request.getContextPath()+"/member/removeMember");
+			System.out.println("탈퇴 실패");
+			return;			
+		} else {
+			// view가 없으므로
+			response.sendRedirect(request.getContextPath()+"/member/logout");
+		}
 	}
 }

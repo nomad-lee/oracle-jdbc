@@ -22,6 +22,7 @@ public class AddMemberController extends HttpServlet {
 	// 회원가입 액션	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
+		
 		String memberId = request.getParameter("memberId");
 		String memberPw = request.getParameter("memberPw");
 		String memberName = request.getParameter("memberName");

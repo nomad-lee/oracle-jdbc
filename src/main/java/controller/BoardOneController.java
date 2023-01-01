@@ -8,9 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import service.BoardService;
 import vo.Board;
+import vo.Member;
 
 @WebServlet("/board/boardOne")
 public class BoardOneController extends HttpServlet {	
@@ -21,7 +23,14 @@ public class BoardOneController extends HttpServlet {
 		 */
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int boardNo = 0;
+		// 로그인 여부확인, 로그인 되어있지 않으면 홈으로 이동
+		HttpSession session = request.getSession();		
+		Member loginMember = (Member)session.getAttribute("loginMember");
+		if(loginMember == null) {
+			response.sendRedirect(request.getContextPath()+"/home");
+			return;
+		}
+		int boardNo = 0;		
 		boardNo = Integer.parseInt(request.getParameter("boardNo"));
 
 		Board board = new Board();

@@ -47,12 +47,11 @@ public class MemberDao {
 	public int updateMember(Connection conn, Member member) throws Exception {
 		int row = 0;
 
-		String sql = "UPDATE member SET member_name = ?, member_pw = ?, updatedate = ? WHERE member_id = ?";
+		String sql = "UPDATE member SET member_name = ?, updatedate = ? WHERE member_id = ?";
 		PreparedStatement stmt = conn.prepareStatement(sql);
 		stmt.setString(1, member.getMemberName());
-		stmt.setString(2, member.getMemberPw());
-		stmt.setString(3, member.getUpdatedate());
-		stmt.setString(4, member.getMemberId());
+		stmt.setString(2, member.getUpdatedate());
+		stmt.setString(3, member.getMemberId());
 			
 		row = stmt.executeUpdate();
 		return row;

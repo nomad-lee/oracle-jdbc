@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,8 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 <!-- 부트스트랩5 -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script>	
 	$(document).ready(function(){
@@ -21,6 +21,21 @@
 
 	    let today = year + '/' + month  + '/' + day;
 	    $('#updatedate').val(today);
+
+		// 폼 유효성 검사
+	    $('#btnSubmit').click(function() {
+			if($('#boardTitle').val() == '') { // .val().length < 1으로도 가능
+				alert('제목을 입력하세요');
+				boardTitle.focus();
+				return;
+			} else {
+				if($('#boardContent').val() == '') {
+					alert('내용을 입력하세요');
+					boardContent.focus();
+					return;
+				}
+			}
+		});
 	  });
 </script>
 <style>
@@ -29,7 +44,9 @@
 </style>
 </head>
 <body>
-	<a href="${pageContext.request.contextPath}/board/boardList">게시판으로</a>
+	<div>
+		<c:import url="../inc/nav.jsp"></c:import>		
+	</div>
 	<h1 class="mb-5">MODIFY BOARD</h1>
 	
 	<div class="container">
@@ -37,20 +54,20 @@
 			<div class="row g-2">
 				<div class="form-floating col-md">
 					<input type="hidden" name="boardNo" value="${board.boardNo}">
-					<input type="text" class="form-control" id="title" placeholder="제목을 입력하시오" name="boardTitle" value="${board.boardTitle}">
-					<label for="title">boardTitle</label>
+					<input type="text" class="form-control" id="boardTitle" placeholder="제목을 입력하시오" name="boardTitle" value="${board.boardTitle}">
+					<label for="boardTitle">제목</label>
 				</div>
 				<div class="form-floating col-md-3 mb-3">
 					<input type="text" class="form-control" id="updatedate" name="updatedate" readonly>
-					<label for="updatedate">updatedate</label>
+					<label for="updatedate">수정일</label>
 				</div>
 			</div>
 			<div class="form-floating mb-3">
-				<textarea class="form-control" id="content" style="height: 200px" placeholder="내용을 입력하시오" name="boardContent">${board.boardContent}</textarea>
-				<label for="content">boardContent</label>
+				<textarea class="form-control" id="boardContent" style="height: 200px" placeholder="내용을 입력하시오" name="boardContent">${board.boardContent}</textarea>
+				<label for="boardContent">내용</label>
 			</div>
 			<div class="text-center">
-				<button class="btn btn-secondary btn-lg center" type="submit">작성완료</button>
+				<button class="btn btn-secondary btn-lg center" id="btnSubmit" type="submit">작성완료</button>
 			</div>			
 		</form>
 	</div> 

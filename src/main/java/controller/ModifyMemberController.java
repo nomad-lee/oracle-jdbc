@@ -15,15 +15,14 @@ import vo.Member;
 public class ModifyMemberController extends HttpServlet {
 	// 회원 수정 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 로그인 후에만 접근가능
-		HttpSession session = request.getSession();
-		
-		// 로그인 여부확인, 로그인 되어있지않을 경우 회원페이지로 이동
-		Member loginMember = (Member)session.getAttribute("loginMember");
+		// 로그인 여부확인, 로그인 되어있지 않으면 홈으로 이동
+		HttpSession session = request.getSession();		
+		Member loginMember = (Member)session.getAttribute("loginMember");		
 		if(loginMember == null) {
 			response.sendRedirect(request.getContextPath()+"/home");
 			return;
 		}
+		
 		// view와 공유할 모델 데이터 성정
 		request.setAttribute("loginMember", loginMember);
 		
@@ -84,30 +83,31 @@ public class ModifyMemberController extends HttpServlet {
 		
 		request.setCharacterEncoding("utf-8");
 
-		
+		// 로그인 여부확인, 로그인 되어있지 않으면 홈으로 이동
+		HttpSession session = request.getSession();		
+		Member loginMember = (Member)session.getAttribute("loginMember");		
+		if(loginMember == null) {
+			response.sendRedirect(request.getContextPath()+"/home");
+			return;
+		}
 		
 		String memberId = request.getParameter("memberId");
-		String memberPw = request.getParameter("memberPw");
+		//String memberPw = request.getParameter("memberPw");
 		String memberName = request.getParameter("memberName");
 		String updatedate = request.getParameter("updatedate");
-		
-
+		System.out.println(updatedate);
 		
 	    Member member = new Member();
-	    Member tempMember = new Member();
 	    member.setMemberId(memberId);
-	    member.setMemberPw(memberPw);
+	    //member.setMemberPw(memberPw);
 	    member.setMemberName(memberName);
 	    member.setUpdatedate(updatedate);
 	    
 	    // 모델호출
-		MemberService memberService = new MemberService();
-		
-		if (memberPw == null || "".equals(memberPw)) {			
-			updateMember = memberDao.updateMember(loginMember);	
-		}
-		
+		MemberService memberService = new MemberService();		
 		memberService.updateMemberService(member);
+		
+		session.setAttribute("memberName", memberName);
 
 		// view가 없으므로
 		response.sendRedirect(request.getContextPath()+"/member/memberOne");

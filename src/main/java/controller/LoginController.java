@@ -60,12 +60,12 @@ public class LoginController extends HttpServlet {
 		Member returnMember = memberService.loginService(paramMember);
 				
 		if(returnMember == null) { //로그인 실패
-			String msg = URLEncoder.encode("로그인 실패", "utf-8");
-			response.sendRedirect(request.getContextPath()+"/member/login?msg="+msg);
+			//String msg = URLEncoder.encode("로그인 실패", "utf-8");
+			response.sendRedirect(request.getContextPath()+"/member/login?memberId="+memberId);
 			System.out.println("로그인 실패");
 			return;
 		}
-		
+
 		session.setAttribute("loginMember", returnMember);
 		response.sendRedirect(request.getContextPath()+"/home");
 		System.out.println("로그인 성공");
