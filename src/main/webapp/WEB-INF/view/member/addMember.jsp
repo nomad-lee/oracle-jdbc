@@ -11,6 +11,32 @@
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
 <!-- 부트스트랩5 -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){	    
+	    $('#btnSubmit').click(function() {
+			// 폼 유효성 검사
+			if($('#memberId').val() == '') { // .val().length < 1으로도 가능
+				alert('아이디를 입력하세요');
+				memberId.focus();
+				return;
+			} else {
+				if($('#memberPw').val() == '') {
+					alert('비밀번호를 입력하세요');
+					memberPw.focus();
+					return;
+				} else {
+					if($('#memberName').val() == '') {
+						alert('이름을 입력하세요')
+						memberName.focus();
+						return;						
+					}
+				}
+			}
+		});
+	  });	
+</script>
 <style>
 	h1 { font-family: 'Nanum Gothic Coding', monospace; color:white; padding-top:50px; font-size: 40px; text-align: center;}
 	body { background-color:#196F3D;}
@@ -26,19 +52,19 @@
 	<div class="container">		
 		<form action="${pageContext.request.contextPath}/member/addMember" method="post">
 			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="floatMemberId" placeholder="아이디를 입력하시오" name="memberId">
-				<label for="floatMemberId">아이디</label>
+				<input type="text" class="form-control" id="memberId" placeholder="아이디를 입력하시오" name="memberId">
+				<label for="memberId">아이디</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="password" class="form-control" id="floatMemberPw" placeholder="비밀번호를 입력하시오" name="memberPw">
-				<label for="floatMemberPw">패스워드</label>
+				<input type="password" class="form-control" id="memberPw" placeholder="비밀번호를 입력하시오" name="memberPw">
+				<label for="memberPw">패스워드</label>
 			</div>
 			<div class="form-floating mb-3">
-				<input type="text" class="form-control" id="floatMemberName" placeholder="이름을 입력하시오" name="memberName">
-				<label for="floatMemberName">이름</label>
+				<input type="text" class="form-control" id="memberName" placeholder="이름을 입력하시오" name="memberName">
+				<label for="memberName">이름</label>
 			</div>
 			<div class="text-center">
-				<button class="btn btn-secondary btn-lg center" type="submit">가입완료</button>
+				<button class="btn btn-secondary btn-lg center" id="btnSubmit" type="submit">가입완료</button>
 			</div>			
 		</form>
 	</div>	

@@ -31,56 +31,6 @@ public class ModifyMemberController extends HttpServlet {
 	}
 	// 회원정보 수정 액션
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		/*
-		 * redirect -> get방식 /member/memberOne?key값 <- 컨트롤러 요청
-		 * 
-		 */
-		/*
-		 * if(session.getAttribute("loginMember") == null) {
-			// 로그인 되지 않은 상태
-			String msg = URLEncoder.encode("잘못된 접근입니다", "utf-8");
-			response.sendRedirect(request.getContextPath()+"/mainPage.jsp?msg="+msg);
-			return;
-			}
-			
-			request.setCharacterEncoding("utf-8");
-			
-			Member loginMember = (Member)session.getAttribute("loginMember");
-			String memberId = request.getParameter("memberId");
-			String memberName = request.getParameter("memberName");
-			String memberPw = request.getParameter("memberPw");
-			
-			// 컨트롤러
-			loginMember.setMemberId(memberId);
-			loginMember.setMemberName(memberName);
-			loginMember.setMemberPw(memberPw);
-		
-			// 분리된 모델 호출
-			MemberDao memberDao = new MemberDao();
-			Member updateMember = null;
-			
-			if((memberPw == null || "".equals(memberPw)) && (memberPw2 == null || "".equals(memberPw2))) {
-				// 비밀번호 미변경
-				updateMember = memberDao.updateMember(loginMember);		
-				System.out.println("비번 미변경");
-			} else {
-				// 비밀번호 변경 시
-				updateMember = memberDao.updateMemberPw(loginMember);
-				System.out.println("비번 변경");
-			}	
-				
-			if(updateMember != null){
-				session.setAttribute("loginMember", loginMember);
-				response.sendRedirect(request.getContextPath()+"/user.jsp");
-				System.out.println(loginMember+"수정완");
-				
-			} else {
-				response.sendRedirect(request.getContextPath()+"/user.jsp");
-				System.out.println("수정실패");
-			}
-		 * 
-		 */
-		
 		request.setCharacterEncoding("utf-8");
 
 		// 로그인 여부확인, 로그인 되어있지 않으면 홈으로 이동
