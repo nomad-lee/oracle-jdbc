@@ -17,7 +17,7 @@ import service.BoardService;
 // list select					: C -> M -> V 
 // form	페이지호출					: C -> V
 // action insert/update/delete	: C -> M =====> response.sendRedirect()
-@WebServlet("/board/addBoard")
+@WebServlet("/order/orderList")
 public class AddBoardController extends HttpServlet {
 	// 글쓰기 폼
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
